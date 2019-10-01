@@ -1,52 +1,78 @@
 /**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
+ * Layout component for all the pages of the site
  */
 
 import React from "react"
-import PropTypes from "prop-types"
+import { Link } from "gatsby"
+import Img from "gatsby-image"
+// // import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 
-import Header from "./header"
+// import Header from "./header"
 import "./layout.css"
+import styles from "./layout.module.css"
 
-const Layout = ({ children }) => {
+const Layout = props => {
   const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
+    {
+      navbarBgVer: file(relativePath: { eq: "navbar-ver.jpeg" }) {
+        childImageSharp {
+          fluid(maxHeight: 1200) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      navbarBgHor: file(relativePath: { eq: "navbar-hor.jpeg" }) {
+        childImageSharp {
+          fluid(maxWidth: 2000) {
+            ...GatsbyImageSharpFluid
+          }
         }
       }
     }
   `)
-
+  const sources = [
+    data.navbarBgVer.childImageSharp.fluid,
+    {
+      ...data.navbarBgHor.childImageSharp.fluid,
+      media: `(min-width: 580px)`,
+    },
+  ]
+  console.log(data)
   return (
-    <>
-      <Header siteTitle={data.site.siteMetadata.title} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0px 1.0875rem 1.45rem`,
-          paddingTop: 0,
-        }}
-      >
-        <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
-      </div>
-    </>
+    <div id={styles.layout}>
+      <nav id={styles.navbar}>
+        <div id={styles.navbarBackground}>
+          <Img style={{ height: "100%" }} fluid={sources} />
+        </div>
+        <div id={styles.navbarLinkContainer}>
+          <Link className={styles.navLink} to="/">
+            HOME
+          </Link>
+          <Link className={styles.navLink} to="/about/">
+            ABOUT
+          </Link>
+          <Link className={styles.navLink} to="/contact/">
+            CONTACT
+          </Link>
+        </div>
+      </nav>
+      <main id={styles.main}>
+        <header id={styles.mainHeader}>
+          <h1>{props.headerText}</h1>
+        </header>
+        <div id={styles.content}>{props.children}</div>
+      </main>
+      {/* <footer> */}
+      {/*   © {new Date().getFullYear()}, Built with */}
+      {/*   {` `} */}
+      {/*   <a href="https://www.gatsbyjs.org">Gatsby</a> */}
+      {/* </footer> */}
+    </div>
   )
 }
 
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-}
-
+// Layout.propTypes = {
+//   children: PropTypes.node.isRequired,
+// }
 export default Layout
