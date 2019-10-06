@@ -6,7 +6,7 @@ import Layout from "../components/layout"
 // import SEO from "../components/seo"
 
 const IndexPage = () => (
-  <Layout headerText="Want to say hi?.">
+  <Layout pageTitle={"FidelVe | Contact page"} headerText="Want to say hi?.">
     <p>
       If you want to contact me, you can send me an email at{" "}
       <b>me@fidel.engineer</b>. You can also see my public profiles at github

@@ -1,12 +1,12 @@
 import React from "react"
-// import { Link } from "gatsby"
+import { Link } from "gatsby"
 
 import Layout from "../components/layout"
 // import Image from "../components/image"
 // import SEO from "../components/seo"
 
 const IndexPage = () => (
-  <Layout headerText="Hi! my name is Fidel.">
+  <Layout pageTitle={"FidelVe | Homepage"} headerText="Hi! my name is Fidel.">
     {/* <SEO title="Home" /> */}
     <p>
       I'm a Chemical Engineer with experience working in the Oil &amp; Gas
@@ -45,13 +45,7 @@ const IndexPage = () => (
         </a>
       </li>
       <li>
-        <a
-          href="./freecodecamp/index.html"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          FreeCodeCamp finished projects
-        </a>
+        <Link to="/freecodecamp/">FreeCodeCamp finished projects</Link>
       </li>
     </ul>
     {/* <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}> */}

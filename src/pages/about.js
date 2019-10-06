@@ -1,6 +1,7 @@
 import React from "react"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
+// import { Helmet } from "react-helmet"
 // import { Link } from "gatsby"
 
 import Layout from "../components/layout"
@@ -8,7 +9,7 @@ import Layout from "../components/layout"
 // import SEO from "../components/seo"
 
 const IndexPage = props => (
-  <Layout headerText="About me!.">
+  <Layout pageTitle={"FidelVe | About page"} headerText="About me!.">
     {/* <SEO title="Home" /> */}
     <p>
       In april 2011 I obtained my BSc in Chemical Engineering in Venezuela. In
@@ -88,7 +89,7 @@ export const squareImage = graphql`
   fragment squareImage on File {
     childImageSharp {
       fluid(maxWidth: 400) {
-        ...GatsbyImageSharpFluid
+        ...GatsbyImageSharpFluid_noBase64
       }
     }
   }
@@ -103,20 +104,3 @@ export const query = graphql`
     }
   }
 `
-
-////// TEST
-// const ComponentName = ({ data }) => <pre>{JSON.stringify(data, null, 4)}</pre>
-
-// export const query = graphql`
-//   {
-//     imageOne: file(relativePath: { eq: "hardhat-600px.jpg" }) {
-//       childImageSharp {
-//         fluid(width: 400) {
-//           ...GatsbyImageSharpFluid
-//         }
-//       }
-//     }
-//   }
-// `
-
-// export default ComponentName

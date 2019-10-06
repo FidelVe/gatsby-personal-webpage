@@ -7,19 +7,6 @@ import { StaticQuery, graphql } from "gatsby"
 import styles from "./layout.module.css"
 import "./layout.css"
 import Img from "gatsby-image"
-import { Helmet } from "react-helmet"
-
-// String literals
-const _VER = "vertical"
-const _HOR = "horizontal"
-// const _WIDTH = "100%"
-const _HEIGHT = "100%"
-const _MIN_HEIGHT = "60px"
-const _INNER_WIDTH = 580
-const _EVENT_RESIZE = "resize"
-const _LINK_ROOT = "/"
-const _LINK_ABOUT = "/about/"
-const _LINK_CONTACT = "/contact/"
 
 class Layout extends React.Component {
   constructor(props) {
@@ -29,29 +16,22 @@ class Layout extends React.Component {
     }
   }
   getPosition = () => {
-    if (typeof window !== "undefined") {
-      return window.innerWidth < _INNER_WIDTH ? _HOR : _VER
-    }
+    return window.innerWidth < 580 ? "horizontal" : " vertical"
   }
   updateSize = () => {
     let position = this.getPosition()
-    if (position !== this.state.navbarPosition) {
-      // Changin the state will cause a re-render of the page, with this
-      // conditional we are only re-rendering when the navbar changes position
-      this.setState({ navbarPosition: position })
-    }
+    this.setState({ navbarPosition: position })
   }
 
   componentDidMount() {
-    window.addEventListener(_EVENT_RESIZE, this.updateSize)
+    window.addEventListener("resize", this.updateSize)
   }
 
   componentWillUnmount() {
-    window.removeEventListener(_EVENT_RESIZE, this.updateSize)
+    window.removeEventListener("resize", this.updateSize)
   }
-
   render() {
-    const navbarPosition = this.state.navbarPosition
+    let navBarPosition = this.state.navBarPosition
     return (
       <StaticQuery
         query={graphql`
@@ -59,14 +39,14 @@ class Layout extends React.Component {
             navbarBgVer: file(relativePath: { eq: "navbar-ver.jpeg" }) {
               childImageSharp {
                 fluid(maxHeight: 1200) {
-                  ...GatsbyImageSharpFluid_noBase64
+                  ...GatsbyImageSharpFluid
                 }
               }
             }
             navbarBgHor: file(relativePath: { eq: "navbar-hor.jpeg" }) {
               childImageSharp {
                 fluid(maxWidth: 2000) {
-                  ...GatsbyImageSharpFluid_noBase64
+                  ...GatsbyImageSharpFluid
                 }
               }
             }
@@ -74,56 +54,43 @@ class Layout extends React.Component {
         `}
         render={data => (
           <div id={styles.layout}>
-            <Helmet>
-              <title>{this.props.pageTitle}</title>
-            </Helmet>
             <nav id={styles.navbar}>
               <div id={styles.navbarBackground}>
-                {navbarPosition === _VER ? (
+                {navBarPosition === "vertical" ? (
                   <Img
-                    style={{ height: _HEIGHT }}
+                    style={{ height: "100%" }}
                     fluid={data.navbarBgVer.childImageSharp.fluid}
-                    critical={true}
                   />
                 ) : (
                   <Img
-                    style={{ minHeight: _MIN_HEIGHT }}
+                    style={{ width: "100%" }}
                     fluid={data.navbarBgHor.childImageSharp.fluid}
-                    critical={true}
                   />
                 )}
               </div>
               <div id={styles.navbarLinkContainer}>
-                <Link className={styles.navLink} to={_LINK_ROOT}>
+                <Link className={styles.navLink} to="/">
                   HOME
                 </Link>
-                <Link className={styles.navLink} to={_LINK_ABOUT}>
+                <Link className={styles.navLink} to="/about/">
                   ABOUT
                 </Link>
-                <Link className={styles.navLink} to={_LINK_CONTACT}>
+                <Link className={styles.navLink} to="/contact/">
                   CONTACT
                 </Link>
               </div>
             </nav>
             <main id={styles.main}>
+              {/* <DisplaySize /> */}
               <header id={styles.mainHeader}>
                 <h1>{this.props.headerText}</h1>
               </header>
               <div id={styles.content}>{this.props.children}</div>
             </main>
-            {/* <footer> */}
-            {/*   © {new Date().getFullYear()}, Built with */}
-            {/*   {` `} */}
-            {/*   <a href="https://www.gatsbyjs.org">Gatsby</a> */}
-            {/* </footer> */}
           </div>
         )}
       />
     )
   }
 }
-
-// Layout.propTypes = {
-//   children: PropTypes.node.isRequired,
-// }
 export default Layout

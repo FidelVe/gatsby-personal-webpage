@@ -1,8 +1,9 @@
 module.exports = {
+  pathPrefix: "/media/fidel/data/Projects/personal-website/gatsby/personal-site/public",
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `FidelVe | Website`,
+    description: `FidelVe personal website.`,
+    author: `@fidelve`,
     foo: `bar`,
   },
   plugins: [
