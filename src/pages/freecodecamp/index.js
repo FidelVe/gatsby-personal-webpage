@@ -80,7 +80,7 @@ export const query = graphql`
     fccLogo: file(relativePath: { eq: "freecodecamp-logo.png" }) {
       childImageSharp {
         fluid(maxWidth: 400) {
-          ...GatsbyImageSharpFluid_noBase64
+          ...GatsbyImageSharpFluid
         }
       }
     }

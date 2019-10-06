@@ -43,7 +43,7 @@ const IndexPage = props => (
       <li>
         {/* <Link to="/freecodecamp/responsive-web-design/build-a-product-landing-page/without-test-module/"> */}
         <a href="./build-a-product-landing-page/with-test-module/index.html">
-          Build a Product Landing Page part II
+          Build a Product Landing Page part
         </a>
         {/* </Link> */}
       </li>
@@ -72,7 +72,7 @@ export const query = graphql`
     fccLogo: file(relativePath: { eq: "freecodecamp-logo.png" }) {
       childImageSharp {
         fluid(maxWidth: 400) {
-          ...GatsbyImageSharpFluid_noBase64
+          ...GatsbyImageSharpFluid
         }
       }
     }

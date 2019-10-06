@@ -29,7 +29,6 @@ const IndexPage = props => (
     <div style={{ maxWidth: "400px", width: "100%", margin: "0 auto" }}>
       <Img fluid={props.data.imageOne.childImageSharp.fluid} alt="hard hat" />
     </div>
-    {/* ¦ ¦ <img src="./images/hardhat-600px.jpg" alt="hard hat" id="about-img-1" /> */}
     <p>
       Ever since my time as a university student, I always been interested in
       computers and computer programming, during my student years I worked
@@ -50,7 +49,6 @@ const IndexPage = props => (
         alt="Picture with rig in background"
       />
     </div>
-    {/* ¦ ¦ <img src="./images/rig-pic-2.jpg" alt="picture with rig in background" id="about-img-2" /> */}
     <p>
       Working as a Drilling Fluids Engineer I got the opportunity to learn many
       things about the industry and about myself, travelled all around Venezuela
@@ -85,7 +83,7 @@ const IndexPage = props => (
 
 export default IndexPage
 
-export const squareImage = graphql`
+const squareImage = graphql`
   fragment squareImage on File {
     childImageSharp {
       fluid(maxWidth: 400) {
@@ -97,10 +95,18 @@ export const squareImage = graphql`
 export const query = graphql`
   query {
     imageOne: file(relativePath: { eq: "hardhat-600px.jpg" }) {
-      ...squareImage
+      childImageSharp {
+        fluid(maxWidth: 400) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
     }
     imageTwo: file(relativePath: { eq: "rig-pic-2.jpg" }) {
-      ...squareImage
+      childImageSharp {
+        fluid(maxWidth: 400) {
+          ...GatsbyImageSharpFluid_noBase64
+        }
+      }
     }
   }
 `
